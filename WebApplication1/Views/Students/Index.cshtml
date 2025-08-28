@@ -5,6 +5,9 @@
 }
 
 <!--Generate html for rendering a list of students-->
+
+<a class="btn btn-primary mb-3" asp-controller="Students" asp-action="Create">Create</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -14,20 +17,25 @@
         </tr>
     </thead>
     <tbody>
+        
         <tr>
             <td>Jane Doe</td>
             <td>jane.doe@example.com</td>
             <td>2024-09-01</td>
+            <td> <a class="btn btn-primary mb-1" asp-controller="Students" asp-action="Details">Deatils</a> </td>
+            
         </tr>
         <tr>
             <td>John Smith</td>
             <td>john.smith@example.com</td>
-            <td>2024-09-02</td> 
+            <td>2024-09-02</td>
+            <td> <a class="btn btn-primary mb-1" asp-controller="Students" asp-action="Details">Deatils</a> </td>
         </tr>
         <tr>
             <td>Emily Johnson</td>
             <td>emily.johnson@example.com</td>
-            <td>2024-09-03</td> 
+            <td>2024-09-03</td>
+            <td> <a class="btn btn-primary mb-1" asp-controller="Students" asp-action="Details">Deatils</a> </td>
         </tr> 
     </tbody>
 </table>
