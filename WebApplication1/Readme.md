@@ -7,3 +7,6 @@
 
 
 5. Do the same for the teacher's module. Create, List, Edit, details, delete
+
+> Create and use viewmodels for the Teacher's detail and list pages. Just like the student's.
+> Extra credit: create a view model for the student's create view to pass data from the view to the controller action.
