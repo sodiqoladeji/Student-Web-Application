@@ -64,5 +64,15 @@ namespace WebApplication1.Controllers
             model.EnrolmentDate = "2024-09-01";
             return View(model);
         }
+        public IActionResult CreateStudent(String Name, String Email, String EnrollmentDate)
+        {
+            var NewStudent = new StudentDetailViewModel();
+            NewStudent.Name = Name;
+            NewStudent.Email = Email;
+            NewStudent.EnrolmentDate = EnrollmentDate;
+
+            return View(NewStudent);
+        }
+
     }
 }
