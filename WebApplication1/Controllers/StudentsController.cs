@@ -51,7 +51,14 @@ namespace WebApplication1.Controllers
         }
 
         // An action method for creating a new student
+        [HttpGet]
         public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(StudentCreateViewModel model)
         {
             return View();
         }
