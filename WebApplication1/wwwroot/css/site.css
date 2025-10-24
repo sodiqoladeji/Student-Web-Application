@@ -20,3 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+form .form-group .form-control {
+  margin-bottom: 10px;
+}
+.field-validation-error {
+    color: red; 
+    font-size: 14px; 
+    margin-top: 4px; 
+}

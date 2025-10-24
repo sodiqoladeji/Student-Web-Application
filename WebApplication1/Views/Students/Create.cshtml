@@ -4,7 +4,31 @@
 *@
 @{
 }
-<h2>Create Student</h2>
+<h2 class="mb-4">Create Student</h2>
+
+<form method="post" action="Create" class="card p-4 shadow-sm" style="max-width: 500px; margin: auto;">
+    <div class="mb-3">
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </div>
+    <div class="mb-3">
+        <label for="Name">Name</label>
+        <input asp-for="Name" type="text" id="Name" class="form-control" />
+		<span asp-validation-for="Name"></span>
+    </div>
+    <div class="mb-3">
+        <label for="Email">Email</label>
+        <input asp-for="Email" type="email" id="Email" name="Email" class="form-control" />
+		<span asp-validation-for="Email"></span>
+    </div>
+    <div class="mb-3">
+        <label for="EnrollmentDate">Enrollment Date</label>
+        <input asp-for="EnrollmentDate" id="EnrollmentDate" name="EnrollmentDate" class="form-control" />
+		<span asp-validation-for="EnrollmentDate"></span>
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+</form>
 
 @* <form method="post" action="CreateStudent">
     <div>
@@ -23,22 +47,3 @@
         <button type="submit">Create</button>
     </div>
 </form> *@
-
-
-<form method="post" action="Create">
-    <div>
-        <label for="Name">Name</label>
-        <input asp-for="Name" type="text" id="Name"  required />
-    </div>
-    <div>
-        <label for="Email">Email</label>
-        <input asp-for="Email" type="email" id="Email" name="Email" required />
-    </div>
-    <div>
-        <label for="EnrollmentDate">Enrollment Date</label>
-        <input asp-for="EnrollmentDate" id="EnrollmentDate" name="EnrollmentDate" required />
-    </div>
-    <div>
-        <button type="submit">Create</button>
-    </div>
-</form>

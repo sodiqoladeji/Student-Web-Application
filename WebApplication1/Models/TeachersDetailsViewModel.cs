@@ -1,10 +1,21 @@
-﻿namespace WebApplication1.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebApplication1.Models
 {
     public class TeachersDetailsViewModel
     {
-        public string Name;
-        public string Email;
-        public string Department;
+        [Required(ErrorMessage = "The Name field is Required")]
+        public string Name { get; set; }
+        
+
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Required(ErrorMessage = "Email is Required")]
+        public string Email { get; set; }
+        
+
+        [Required (ErrorMessage = "The Department field is Required")]
+        public string Department { get; set; }
+        
 
     }
 }

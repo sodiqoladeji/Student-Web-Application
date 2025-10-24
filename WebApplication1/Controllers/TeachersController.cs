@@ -44,6 +44,7 @@ namespace WebApplication1.Controllers
                 Email = "BenHurrel@example.com",
                 Department = "Physics"
             });
+           
             Teachers.Add(new TeachersDetailsViewModel()
             {
                 Name = "Sheila Butler",
@@ -66,8 +67,13 @@ namespace WebApplication1.Controllers
 
             return View(Teachers);
         }
-
-        public IActionResult Create()
+        [HttpGet]
+        public IActionResult Create() 
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(TeachersDetailsViewModel model)
         {
             return View();
         }
