@@ -6,6 +6,13 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    /// <summary>
+    /// Assignment:
+    /// 1. Ensure the details page load the correct student by Id.
+    /// 2. Remove the unused codes and commented out codes.
+    /// 3. Implement a similar dummy db for Teachers. make sure to use a proper naming for the classes.
+    ///  CreateModel, DetailsMode, ListModel etc
+    /// </summary>
     public class StudentsController : Controller
     {
         private static List<StudentDetailViewModel> StudentsDatabase = new List<StudentDetailViewModel>()
