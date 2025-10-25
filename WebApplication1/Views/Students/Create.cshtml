@@ -20,10 +20,9 @@
         <input asp-for="Email" type="email" id="Email" name="Email" class="form-control" />
 		<span asp-validation-for="Email"></span>
     </div>
-    <div class="mb-3">
-        <label for="EnrollmentDate">Enrollment Date</label>
-        <input asp-for="EnrollmentDate" id="EnrollmentDate" name="EnrollmentDate" class="form-control" />
-		<span asp-validation-for="EnrollmentDate"></span>
+     
+    <div>
+        @ViewBag.Message
     </div>
     <div class="d-grid">
         <button type="submit" class="btn btn-primary">Create</button>

@@ -7,6 +7,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Email</th>
             <th>Enrollment Date</th>
@@ -17,10 +18,11 @@
         @foreach (var student in Model)
         {
             <tr>
+                <td>@student.Id</td>
                 <td>@student.Name</td>
                 <td>@student.Email</td>
                 <td>@student.EnrolmentDate</td>
-                <td> <a class="btn btn-primary mb-1" asp-controller="Students" asp-action="Details">Deatils</a> </td>
+                <td> <a class="btn btn-primary mb-1" asp-controller="Students" asp-action="Details">Details</a> </td>
 
             </tr>
         } 
