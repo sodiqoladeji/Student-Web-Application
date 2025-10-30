@@ -20,57 +20,13 @@ namespace WebApplication1.Controllers
             new StudentDetailViewModel{ Id = 1, Name ="Default Student", Email = "defstd@gmail.com"}
         };
 
-
-        // CRUD -> Create, Read, Update, Delete
-
-        // Index Action Method
-        // Use this to display a list of students
-        // Route:  /Students/Index
         public IActionResult Index()
         {
-            /*
-            var students = new List<StudentDetailViewModel>();
-            students.Add(new StudentDetailViewModel()
-            {
-                Name = "Sodiq Yusuff",
-                Email = "syusuff@gmail.com",
-                EnrolmentDate = "Today"
-            });
-
-            students.Add(new StudentDetailViewModel()
-            {
-                Name = "Sodiq Oladeji",
-                Email = "soladeji@gmail.com",
-                EnrolmentDate = "2025-10-11"
-            });
-
-            students.Add(new StudentDetailViewModel()
-            {
-                Name = "James Yusuff",
-                Email = "jy@gmail.com",
-                EnrolmentDate = "2025-10-11"
-            });
-            students.Add(new StudentDetailViewModel()
-            {
-                Name = "poco lee",
-                Email = "plee@gmail.com",
-                EnrolmentDate = "2025-10-11"
-            });
-
-            students.Add(new StudentDetailViewModel()
-            {
-                Name = "Ademola Lukman",
-                Email = "amola@gmail.com",
-                EnrolmentDate = "2028-10-11"
-            });
-            */
-
-            // get all existing students from the db.
+            
 
             return View(StudentsDatabase);
         }
 
-        // An action method for creating a new student
         [HttpGet]
         public IActionResult Create()
         {
@@ -104,32 +60,21 @@ namespace WebApplication1.Controllers
                 EnrolmentDate = DateTime.Now.ToString("yyyy-MM-dd")
             });
 
-            // LINQ
-
-            // redirect to the student list.
             return RedirectToAction("Index");
 
             //ViewBag.Message = "Student created successfully";
-            //return View();
+            
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-            var model = new StudentDetailViewModel();
-            model.Name = "Sodiq Chan";
-            model.Email = "sodiq@gmail.com";
-            model.EnrolmentDate = "2024-09-01";
+
+            StudentDetailViewModel model = StudentsDatabase.FirstOrDefault(student => student.Id == id);
+            if (model == null) 
+            {
+                 RedirectToAction("Index");
+            }
             return View(model);
         }
-        public IActionResult CreateStudent(String Name, String Email, String EnrollmentDate)
-        {
-            var NewStudent = new StudentDetailViewModel();
-            NewStudent.Name = Name;
-            NewStudent.Email = Email;
-            NewStudent.EnrolmentDate = EnrollmentDate;
-
-            return View(NewStudent);
-        }
-
     }
 }

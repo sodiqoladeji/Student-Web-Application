@@ -10,6 +10,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th> Id </th>
             <th> Name </th>
             <th> Email </th>
             <th> Department </th>
@@ -19,14 +20,13 @@
         @foreach (var Teacher in Model)
         {
             <tr>
+                <td> @Teacher.Id </td>
                 <td> @Teacher.Name </td>
                 <td> @Teacher.Email </td>
                 <td> @Teacher.Department </td>
-                <td> <a class="btn btn-primary mb-3" asp-controller="Teachers" asp-action="Details">Details</a></td>
+                <td> <a class="btn btn-primary mb-3" asp-controller="Teachers" asp-action="Details" asp-route-id="@Teacher.Id">Details</a></td>
             </tr>
         }
-
-
     </tbody>
 
 </table>

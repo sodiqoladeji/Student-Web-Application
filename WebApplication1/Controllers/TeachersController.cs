@@ -1,72 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
     public class TeachersController : Controller
     {
+        private static List<TeachersDetailsViewModel> TeachersDatabase = new List<TeachersDetailsViewModel>()
+       {
+           new TeachersDetailsViewModel{Id=1, Name ="Default Teacher", Email = "DefaultT@gmail.com", Department="Default Dept"}
+       };
+            
         public IActionResult Index()
         {
-            var Teachers = new List<TeachersDetailsViewModel>();
-            Teachers.Add(new TeachersDetailsViewModel() 
-            { 
-                Name = "Carla Vaughan",
-                Email = "CarlaVaughan@example.com",
-                Department = "Statistics"
-            });
-            Teachers.Add(new TeachersDetailsViewModel()
-            {
-                Name = "Sue Herridge",
-                Email = "SueHerridge@example.com",
-                Department = "Economics"
-            });
-            Teachers.Add(new TeachersDetailsViewModel()
-            {
-                Name = "Ben Hurrel",
-                Email = "BenHurrel@example.com",
-                Department = "Physics"
-            });
-            Teachers.Add(new TeachersDetailsViewModel()
-            {
-                Name = "Ceci Pessoa",
-                Email = "CeciPessoa@example.com",
-                Department = "Business Administration"
-            });
-            Teachers.Add(new TeachersDetailsViewModel()
-            {
-                Name = "Gangha Jhurry",
-                Email = "GanghaJhurry@example.com",
-                Department = "Mathematics"
-            });
-            Teachers.Add(new TeachersDetailsViewModel()
-            {
-                Name = "Ben Hurrel",
-                Email = "BenHurrel@example.com",
-                Department = "Physics"
-            });
-           
-            Teachers.Add(new TeachersDetailsViewModel()
-            {
-                Name = "Sheila Butler",
-                Email = "SheilaButler@example.com",
-                Department = "Management"
-            });
-            Teachers.Add(new TeachersDetailsViewModel()
-            {
-                Name = "Sue Herridge",
-                Email = "SueHerridge@example.com",
-                Department = "Economics"
-            });
-            Teachers.Add(new TeachersDetailsViewModel()
-            {
-                Name = "Ben Hurrel",
-                Email = "BenHurrel@example.com",
-                Department = "Physics"
-            });
+            
 
 
-            return View(Teachers);
+            return View(TeachersDatabase);
         }
         [HttpGet]
         public IActionResult Create() 
@@ -74,19 +27,49 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(TeachersDetailsViewModel model)
+        public IActionResult Create(TeachersCreateViewModel model)
         {
-            return View();
+            if (ModelState.IsValid == false)
+            {
+                return View(model);
+
+                
+            }
+
+            int id = TeachersDatabase.Last().Id + 1;
+            TeachersDatabase.Add(new TeachersDetailsViewModel()
+            { 
+                Id = id,
+                Name = model.Name,
+                Email = model.Email,
+                Department = model.Department
+            });
+
+            
+            return RedirectToAction("Index");
+
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int id) 
         {
-            var TeachersModel = new TeachersDetailsViewModel();
-            TeachersModel.Name = "Ben Hurrel";
-            TeachersModel.Email = "BenHurrel@example.com";
-            TeachersModel.Department = "Physics";
+            /*TeachersDetailsViewModel model = null;
+            foreach (var Teacher in TeachersDatabase)
+            {
+                if (Teacher.Id == id)
+                {
+                   model = Teacher;
+                    break;
+                }
+            }*/
+            var model = TeachersDatabase.FirstOrDefault(Teacher => Teacher.Id == id);
+            if (model == null)
+            {
+                 
+                RedirectToAction("Index"); 
+            }
 
-            return View(TeachersModel);
+            return View(model);
         }
+        
     }
 }
