@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.Models
 {
@@ -14,6 +15,6 @@ namespace WebApplication1.Models
 
         [Required(ErrorMessage = "The Enrollment field is Required")]
         [DataType(DataType.Date)]
-        public string EnrolmentDate { get; set; }
+        public DateTime EnrolmentDate { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +58,7 @@ namespace WebApplication1.Controllers
                 Id = id,
                 Name = model.Name,
                 Email = model.Email,
-                EnrolmentDate = DateTime.Now.ToString("yyyy-MM-dd")
+                EnrolmentDate = model.EnrolmentDate
             });
 
             return RedirectToAction("Index");
@@ -75,6 +76,66 @@ namespace WebApplication1.Controllers
                  RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var model = StudentsDatabase.FirstOrDefault(s=>s.Id == id);
+            if (model == null) 
+            { 
+                return NotFound();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(StudentDetailViewModel model)
+        {
+            if (!ModelState.IsValid) 
+            {
+                return View(model);
+            }
+
+            var student = StudentsDatabase.FirstOrDefault(s => s.Id == model.Id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            student.Name = model.Name;
+            student.Email = model.Email;
+            student.EnrolmentDate = model.EnrolmentDate;
+
+
+            return RedirectToAction("Details", new { id = model.Id });
+        }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var model = StudentsDatabase.FirstOrDefault(s => s.Id == id);
+            if (ModelState.IsValid == false) 
+            {
+                return NotFound();
+            }
+            return View(model);
+
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(StudentDetailViewModel model)
+        {
+            var student = StudentsDatabase.FirstOrDefault(s => s.Id == model.Id);
+            if (student == null) 
+            {
+                return NotFound();
+            }
+            
+            StudentsDatabase.Remove(student);
+            return RedirectToAction("Index");
         }
     }
 }

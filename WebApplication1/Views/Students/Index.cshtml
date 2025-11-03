@@ -11,6 +11,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Enrollment Date</th>
+
         </tr>
     </thead>
     <tbody>
@@ -23,8 +24,15 @@
                 <td>@student.Email</td>
                 <td>@student.EnrolmentDate</td>
                 <td> <a class="btn btn-primary mb-1" asp-controller="Students" asp-action="Details" asp-route-id="@student.Id">Details</a> </td>
-
+                <td> <a  class="btn btn-primary mb-1" asp-controller="Students" asp-action="Edit" asp-route-id="@student.Id">Edit</a> </td>
+                <td>
+                    <form asp-controller="Students" asp-action="Delete" asp-route-id="@student.Id" method="post" style="display:inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this student?');">🗑️ Delete</button>
+                    </form>
+                </td>
             </tr>
+           
         } 
     </tbody>
 </table>
