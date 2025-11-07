@@ -14,9 +14,46 @@
     <input asp-for="Id" type="hidden" />
 
     <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateofBirth" class="control-label"></label>
+        <input asp-for="DateofBirth" class="form-control" />
+        <span asp-validation-for="DateofBirth" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Gender" class="control-label"></label>
+        <input asp-for="Gender" class="form-control" />
+        <select asp-for="Gender" class="form-control">
+            <option value="">Select gender</option>
+            <option value="Male" selected="@(Model?.Gender == "Male")">Male</option>
+            <option value="Female" selected="@(Model?.Gender == "Female")">Female</option>
+        </select>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="CountryofBirth" class="control-label"></label>
+        <select asp-for="CountryofBirth" asp-items="ViewBag.Countries" class="form-control">
+            <option value="">Select country</option>
+        </select>
+        <span asp-validation-for="CountryofBirth" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="control-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -26,8 +63,14 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="Address" class="control-label"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
         <label asp-for="EnrolmentDate" class="control-label"></label>
-        <input asp-for="EnrolmentDate" class="form-control" type="date" />
+        <div class="form-control-plaintext">@Model.EnrolmentDate.ToString("yyyy-MM-dd")</div>
         <span asp-validation-for="EnrolmentDate" class="text-danger"></span>
     </div>
 

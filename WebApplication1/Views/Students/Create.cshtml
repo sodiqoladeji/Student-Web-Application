@@ -11,14 +11,54 @@
         <div asp-validation-summary="All" class="text-danger"></div>
     </div>
     <div class="mb-3">
-        <label for="Name">Name</label>
-        <input asp-for="Name" type="text" id="Name" class="form-control" />
-		<span asp-validation-for="Name"></span>
+        <label for="FirstName">First Name</label>
+        <input asp-for="FirstName" type="text" id="FirstName" class="form-control" />
+		<span asp-validation-for="FirstName"></span>
     </div>
+    <div class="mb-3">
+        <label for="LastName">Last Name</label>
+        <input asp-for="LastName" type="text" id="LastName" class="form-control" />
+        <span asp-validation-for="LastName"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Gender">Gender</label>
+        <select asp-for="Gender" class="form-control">
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="DateofBirth">Date of Birth</label>
+		<input asp-for="DateofBirth" type="date" id="DateofBirth" class="form-control" />
+		<span asp-validation-for="DateofBirth"></span>
+	</div>
+
+    <div class="mb-3"> 
+        <label for="CountryofBirth">Country of Birth</label>
+        <select asp-for="CountryofBirth" asp-items="ViewBag.Countries" class="form-control">
+            <option value="">Select country</option>
+        </select>
+		<span asp-validation-for="CountryofBirth"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="PhoneNumber">Phone Number</label>
+		<input asp-for="PhoneNumber" type="tel" id="PhoneNumber" class="form-control" />
+		<span asp-validation-for="PhoneNumber"></span>
+	</div>
+
     <div class="mb-3">
         <label for="Email">Email</label>
         <input asp-for="Email" type="email" id="Email" name="Email" class="form-control" />
-		<span asp-validation-for="Email"></span>
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+		<label for="Address">Address</label>
+		<input asp-for="Address" type="text" id="Address" class="form-control" />
+		<span asp-validation-for="Address"></span>
     </div>
      
     <div class="d-grid">
@@ -26,6 +66,7 @@
     </div>
 </form>
 
-@* <div>
+    <div>
         @ViewBag.Message
-    </div>  *@
+  
+    </div> 
