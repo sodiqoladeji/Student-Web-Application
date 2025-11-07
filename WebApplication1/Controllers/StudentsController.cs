@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -16,9 +18,31 @@ namespace WebApplication1.Controllers
     /// </summary>
     public class StudentsController : Controller
     {
+        private static List<string> CountryList = new List<string>
+        {
+            "", // empty for "Select..."
+            "United States",
+            "United Kingdom",
+            "Canada",
+            "Nigeria",
+            "Ghana",
+            "India"
+        };
         private static List<StudentDetailViewModel> StudentsDatabase = new List<StudentDetailViewModel>()
         {
-            new StudentDetailViewModel{ Id = 1, Name ="Default Student", Email = "defstd@gmail.com"}
+            new StudentDetailViewModel()
+            { Id = 1,
+              FirstName ="Default",
+              LastName = "Student",
+              Email = "defstd@gmail.com",
+              Gender = "Female",
+              EnrolmentDate = DateTime.Now,
+              DateofBirth = DateOnly.MinValue,
+              CountryofBirth = "Nigeria",
+              PhoneNumber = "07452737326",
+              Address = "London, United Kingdom",
+
+            }
         };
 
         public IActionResult Index()
@@ -31,6 +55,8 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            // provide countries for the dropdown
+            ViewBag.Countries = new SelectList(CountryList);
             return View();
         }
 
@@ -41,6 +67,8 @@ namespace WebApplication1.Controllers
             // process the creation (add the new student to the database)
             if (ModelState.IsValid == false)
             {
+                // re-populate countries if we re-render the form
+                ViewBag.Countries = new SelectList(CountryList, model?.CountryofBirth);
                 // at this point, the modelstate is invalid
                 // meaning at least one of the form fields is not passing validation rules
                 // reload the form with the same data passed in
@@ -56,14 +84,20 @@ namespace WebApplication1.Controllers
             StudentsDatabase.Add(new StudentDetailViewModel()
             {
                 Id = id,
-                Name = model.Name,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                DateofBirth = model.DateofBirth,
+                Gender = model.Gender,
+                CountryofBirth = model.CountryofBirth,
+                PhoneNumber = model.PhoneNumber,
                 Email = model.Email,
-                EnrolmentDate = model.EnrolmentDate
+                Address = model.Address,
+                EnrolmentDate = DateTime.Now,
             });
 
             return RedirectToAction("Index");
 
-            //ViewBag.Message = "Student created successfully";
+            ViewBag.Message = "Student created successfully";
             
         }
 
@@ -86,7 +120,8 @@ namespace WebApplication1.Controllers
             { 
                 return NotFound();
             }
-
+            // supply countries and set selected to the existing value
+            ViewBag.Countries = new SelectList(CountryList, model.CountryofBirth);
             return View(model);
         }
 
@@ -96,18 +131,26 @@ namespace WebApplication1.Controllers
         {
             if (!ModelState.IsValid) 
             {
+                // re-populate countries when form re-displays with errors
+                ViewBag.Countries = new SelectList(CountryList, model?.CountryofBirth);
                 return View(model);
             }
 
-            var student = StudentsDatabase.FirstOrDefault(s => s.Id == model.Id);
-            if (student == null)
+            var existingstudent = StudentsDatabase.FirstOrDefault(s => s.Id == model.Id);
+            if (existingstudent == null)
             {
                 return NotFound();
             }
-            student.Name = model.Name;
-            student.Email = model.Email;
-            student.EnrolmentDate = model.EnrolmentDate;
-
+            existingstudent.Id = model.Id;
+            existingstudent.FirstName = model.FirstName;
+            existingstudent.LastName = model.LastName;
+            existingstudent.DateofBirth = model.DateofBirth;
+            existingstudent.CountryofBirth = model.CountryofBirth;
+            existingstudent.Gender = model.Gender;
+            existingstudent.PhoneNumber = model.PhoneNumber;
+            existingstudent.Address = model.Address;
+            existingstudent.Email = model.Email;
+            existingstudent.EnrolmentDate = DateTime.Now;
 
             return RedirectToAction("Details", new { id = model.Id });
         }
@@ -128,13 +171,13 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(StudentDetailViewModel model)
         {
-            var student = StudentsDatabase.FirstOrDefault(s => s.Id == model.Id);
-            if (student == null) 
+            var existingstudent = StudentsDatabase.FirstOrDefault(s => s.Id == model.Id);
+            if (existingstudent == null) 
             {
                 return NotFound();
             }
             
-            StudentsDatabase.Remove(student);
+            StudentsDatabase.Remove(existingstudent);
             return RedirectToAction("Index");
         }
     }
