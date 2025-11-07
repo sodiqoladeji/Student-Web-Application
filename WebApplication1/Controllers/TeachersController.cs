@@ -17,8 +17,6 @@ namespace WebApplication1.Controllers
         public IActionResult Index()
         {
             
-
-
             return View(TeachersDatabase);
         }
         [HttpGet]
@@ -70,6 +68,67 @@ namespace WebApplication1.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var model = TeachersDatabase.FirstOrDefault(Teacher => Teacher.Id == id);
+            if (model == null)
+            {
+                RedirectToAction("Index");
+            }
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(TeachersDetailsViewModel model)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return NotFound();
+            }
+
+            var existingTeacher = TeachersDatabase.FirstOrDefault(Teacher => Teacher.Id == model.Id);
+            if (existingTeacher == null)
+            {
+                return NotFound();
+            }
+            
+            existingTeacher.Name = model.Name;
+            existingTeacher.Email = model.Email;
+            existingTeacher.Department = model.Department;
+
+
+            return RedirectToAction("Details", new { id = model.Id });
+        }
+
+        [HttpGet]
         
+        public IActionResult Delete(int id)
+        {
+            var model =  TeachersDatabase.FirstOrDefault(Teachers=> Teachers.Id == id);
+
+            if (model == null) 
+            { 
+                RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(TeachersDetailsViewModel model)
+        {
+            var existingTeacher = TeachersDatabase.FirstOrDefault(Teacher => Teacher.Id == model.Id);
+            if (existingTeacher == null)
+            {
+                return NotFound();
+            }
+            TeachersDatabase.Remove(existingTeacher);
+           return RedirectToAction("Index");
+        }
     }
 }

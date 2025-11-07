@@ -25,6 +25,13 @@
                 <td> @Teacher.Email </td>
                 <td> @Teacher.Department </td>
                 <td> <a class="btn btn-primary mb-3" asp-controller="Teachers" asp-action="Details" asp-route-id="@Teacher.Id">Details</a></td>
+                <td> <a class="btn btn-primary mb-3" asp-controller="Teachers" asp-action="Edit" asp-route-id="@Teacher.Id">Edit</a></td>
+                <td>
+                    <form asp-controller="Teachers" asp-action="Delete" asp-route-id="@Teacher.Id" method="post" style="display:inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this student?');">🗑️ Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
