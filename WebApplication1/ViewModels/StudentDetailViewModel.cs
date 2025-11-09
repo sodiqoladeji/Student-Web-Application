@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using WebApplication1.Models;
 
 namespace WebApplication1.ViewModels
 {
@@ -43,6 +44,10 @@ namespace WebApplication1.ViewModels
         [Required(ErrorMessage = "The Enrollment field is Required")]
         [DataType(DataType.Date)]
         public DateTime EnrolmentDate { get; set; }
+
+        public TeachersDetailsViewModel ClassTeacher { get; set; } 
+        public Course PrimaryCourse { get; set; }
+        public List<Course> OptionalCourses { get; set; }
     }
 
 }

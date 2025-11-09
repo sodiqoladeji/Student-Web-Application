@@ -53,3 +53,16 @@
     </tr>
    
 </table>
+
+<h2>Class Teacher</h2>
+@if(Model.ClassTeacher != null)
+{
+    <div>
+        Name: @Model.ClassTeacher.Name,
+        Department: @Model.ClassTeacher.Department
+    </div>
+}
+
+<h2>Primary Course</h2>
+
+        <p>Use a table to display the list of optional courses.</p>

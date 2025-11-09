@@ -32,7 +32,8 @@ namespace WebApplication1.Controllers
         private static List<Student> StudentsDatabase = new List<Student>()
         {
             new Student()
-            { Id = 1,
+            { 
+              Id = 1,
               FirstName ="Default",
               LastName = "Student",
               Email = "defstd@gmail.com",
@@ -42,6 +43,33 @@ namespace WebApplication1.Controllers
               CountryofBirth = "Nigeria",
               PhoneNumber = "07452737326",
               Address = "London, United Kingdom",
+
+              ClassTeacher = new TeachersDetailsViewModel()
+              {
+                  Name = "Mr class Teacher John",
+                  Department = "EEE"
+              },
+              PrimaryCourse = new Course()
+              {
+                  CourseID = 1,
+                  CourseCode = "MTS 101",
+                  CourseDescription = "Intro to Maths"
+              }, 
+              OptionalCourses = new List<Course>
+              {
+                  new Course()
+                  {
+                      CourseID = 34,
+                      CourseCode = "BIO 101",
+                      CourseDescription = "Essential Biology"
+                  },
+                  new Course()
+                  {
+                      CourseID = 35,
+                      CourseCode = "CHE 101",
+                      CourseDescription = "Organic Chemistry."
+                  }
+              }
 
             }
         };
@@ -64,6 +92,9 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult Create(StudentCreateViewModel model)
         {
+            // Models folder: for Database representations.
+
+
             // 1. validate the input
             // process the creation (add the new student to the database)
             if (ModelState.IsValid == false)
@@ -82,7 +113,7 @@ namespace WebApplication1.Controllers
 
             // generate a random id for the new student
             int id = StudentsDatabase.Last().Id + 1; // new Random().Next(1, 100);
-            StudentsDatabase.Add(new Student()
+            var mappedStudent = new Student()
             {
                 Id = id,
                 FirstName = model.FirstName,
@@ -94,7 +125,8 @@ namespace WebApplication1.Controllers
                 Email = model.Email,
                 Address = model.Address,
                 EnrolmentDate = DateTime.Now,
-            });
+            };
+            StudentsDatabase.Add(mappedStudent);
 
             return RedirectToAction("Index");
 
@@ -120,8 +152,10 @@ namespace WebApplication1.Controllers
                 PhoneNumber = studentRecord.PhoneNumber,
                 Email = studentRecord.Email,
                 Address = studentRecord.Address,
-                EnrolmentDate = studentRecord.EnrolmentDate
-
+                EnrolmentDate = studentRecord.EnrolmentDate,
+                ClassTeacher = studentRecord.ClassTeacher,
+                PrimaryCourse = studentRecord.PrimaryCourse,
+                OptionalCourses = studentRecord.OptionalCourses
             };
 
             
