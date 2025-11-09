@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis;
 using WebApplication1.Models;
+using WebApplication1.ViewModels;
 
 namespace WebApplication1.Controllers
 {
@@ -28,9 +29,9 @@ namespace WebApplication1.Controllers
             "Ghana",
             "India"
         };
-        private static List<StudentDetailViewModel> StudentsDatabase = new List<StudentDetailViewModel>()
+        private static List<Student> StudentsDatabase = new List<Student>()
         {
-            new StudentDetailViewModel()
+            new Student()
             { Id = 1,
               FirstName ="Default",
               LastName = "Student",
@@ -81,7 +82,7 @@ namespace WebApplication1.Controllers
 
             // generate a random id for the new student
             int id = StudentsDatabase.Last().Id + 1; // new Random().Next(1, 100);
-            StudentsDatabase.Add(new StudentDetailViewModel()
+            StudentsDatabase.Add(new Student()
             {
                 Id = id,
                 FirstName = model.FirstName,
@@ -104,22 +105,49 @@ namespace WebApplication1.Controllers
         public IActionResult Details(int id)
         {
 
-            StudentDetailViewModel model = StudentsDatabase.FirstOrDefault(student => student.Id == id);
-            if (model == null) 
+            Student studentRecord = StudentsDatabase.FirstOrDefault(student => student.Id == id);
+            if (studentRecord == null)
             {
-                 RedirectToAction("Index");
+                RedirectToAction("Index");
             }
+            var model = new StudentDetailViewModel()
+            {
+                Id = studentRecord.Id,
+                FirstName = studentRecord.FirstName,
+                LastName = studentRecord.LastName,
+                DateofBirth = studentRecord.DateofBirth,
+                CountryofBirth = studentRecord.CountryofBirth,
+                PhoneNumber = studentRecord.PhoneNumber,
+                Email = studentRecord.Email,
+                Address = studentRecord.Address,
+                EnrolmentDate = studentRecord.EnrolmentDate
+
+            };
+
+            
             return View(model);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = StudentsDatabase.FirstOrDefault(s=>s.Id == id);
-            if (model == null) 
+            var studentRecord = StudentsDatabase.FirstOrDefault(s=>s.Id == id);
+            if (studentRecord == null) 
             { 
                 return NotFound();
             }
+
+            var model = new EditStudentViewModel()
+            {
+                Email = studentRecord.Email,
+                PhoneNumber = studentRecord.PhoneNumber,
+                Id = studentRecord.Id,
+                Address = studentRecord.Address,
+                LastName = studentRecord.LastName,
+                FirstName = studentRecord.FirstName,
+
+
+            };
             // supply countries and set selected to the existing value
             ViewBag.Countries = new SelectList(CountryList, model.CountryofBirth);
             return View(model);
@@ -127,7 +155,7 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(StudentDetailViewModel model)
+        public IActionResult Edit(EditStudentViewModel model)
         {
             if (!ModelState.IsValid) 
             {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net.Sockets;
 
-namespace WebApplication1.Models
+namespace WebApplication1.ViewModels
 {
     public class StudentCreateViewModel
     {

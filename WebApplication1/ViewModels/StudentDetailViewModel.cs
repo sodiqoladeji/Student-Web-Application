@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 
-namespace WebApplication1.Models
+namespace WebApplication1.ViewModels
 {
     public class StudentDetailViewModel
     {
         public int Id { get; set; }
 
-        [Required (ErrorMessage = "The FirstName field is Required")]
+        [Required(ErrorMessage = "The FirstName field is Required")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "The LastName field is Required")]
@@ -17,7 +18,7 @@ namespace WebApplication1.Models
 
         [Required(ErrorMessage = "The DateofBirth field is Required")]
         [DataType(DataType.Date)]
-        public DateOnly DateofBirth{ get; set; }
+        public DateOnly DateofBirth { get; set; }
 
         [Required(ErrorMessage = "The Gender field is Required")]
         public string Gender { get; set; }
@@ -31,7 +32,7 @@ namespace WebApplication1.Models
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
-        [Required (ErrorMessage = "Email is Required")]
+        [Required(ErrorMessage = "Email is Required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
@@ -43,4 +44,5 @@ namespace WebApplication1.Models
         [DataType(DataType.Date)]
         public DateTime EnrolmentDate { get; set; }
     }
+
 }
