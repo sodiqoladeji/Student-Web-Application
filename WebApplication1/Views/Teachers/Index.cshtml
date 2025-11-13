@@ -1,5 +1,5 @@
 ﻿@using WebApplication1.ViewModels
-@model List<TeachersDetailsViewModel>;
+@model List<Teachers>;
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,7 +12,8 @@
     <thead>
         <tr>
             <th> Id </th>
-            <th> Name </th>
+            <th> First Name </th>
+            <th> Last Name </th>
             <th> Email </th>
             <th> Department </th>
         </tr>
@@ -22,7 +23,8 @@
         {
             <tr>
                 <td> @Teacher.Id </td>
-                <td> @Teacher.Name </td>
+                <td> @Teacher.FirstName </td>
+                <td> @Teacher.LastName </td>
                 <td> @Teacher.Email </td>
                 <td> @Teacher.Department </td>
                 <td> <a class="btn btn-primary mb-3" asp-controller="Teachers" asp-action="Details" asp-route-id="@Teacher.Id">Details</a></td>

@@ -51,18 +51,51 @@
         <th>Enrollment Date</th>
         <td>@Model.EnrolmentDate</td>
     </tr>
-   
+       
 </table>
 
-<h2>Class Teacher</h2>
+<h2 class="section-heading">Class Teacher</h2>
 @if(Model.ClassTeacher != null)
 {
     <div>
-        Name: @Model.ClassTeacher.Name,
+		Name: @Model.ClassTeacher.FirstName @Model.ClassTeacher.LastName
+
         Department: @Model.ClassTeacher.Department
     </div>
 }
 
-<h2>Primary Course</h2>
+<h2 class="section-heading">Primary Course</h2>
 
-        <p>Use a table to display the list of optional courses.</p>
+<div>
+    <strong>CourseID:</strong> @Model.PrimaryCourse.CourseID<br />
+    <strong>CourseCode:</strong> @Model.PrimaryCourse.CourseCode<br />
+    <strong>CourseDescription:</strong> @Model.PrimaryCourse.CourseDescription
+</div>
+        
+
+<h2 class="section-heading">Optional Courses</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>CourseID</th>
+            <th>CourseCode</th>
+            <th>CourseDescription</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model.OptionalCourses)
+        {
+            <tr>
+                <td>@course.CourseID</td>
+                <td>@course.CourseCode</td>
+                <td>@course.CourseDescription</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+       

@@ -7,7 +7,10 @@ namespace WebApplication1.ViewModels
         public int Id { get; set; }
 
         [Required(ErrorMessage = "The Name field is Required")]
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "The Name field is Required")]
+        public string LastName { get; set; }
 
 
         [EmailAddress(ErrorMessage = "Invalid Email Address")]

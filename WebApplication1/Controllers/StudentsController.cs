@@ -32,7 +32,7 @@ namespace WebApplication1.Controllers
         private static List<Student> StudentsDatabase = new List<Student>()
         {
             new Student()
-            { 
+            {
               Id = 1,
               FirstName ="Default",
               LastName = "Student",
@@ -46,7 +46,8 @@ namespace WebApplication1.Controllers
 
               ClassTeacher = new TeachersDetailsViewModel()
               {
-                  Name = "Mr class Teacher John",
+                  FirstName = "Mr class Teacher John",
+                  LastName = "Doe",
                   Department = "EEE"
               },
               PrimaryCourse = new Course()
@@ -54,7 +55,7 @@ namespace WebApplication1.Controllers
                   CourseID = 1,
                   CourseCode = "MTS 101",
                   CourseDescription = "Intro to Maths"
-              }, 
+              },
               OptionalCourses = new List<Course>
               {
                   new Course()
@@ -71,8 +72,52 @@ namespace WebApplication1.Controllers
                   }
               }
 
+            },
+
+
+            new Student()
+            {
+                Id = 2,
+              FirstName ="Default",
+              LastName = "Student",
+              Email = "defstd@gmail.com",
+              Gender = "Female",
+              EnrolmentDate = DateTime.Now,
+              DateofBirth = DateOnly.MinValue,
+              CountryofBirth = "Nigeria",
+              PhoneNumber = "07452737326",
+              Address = "London, United Kingdom",
+
+              ClassTeacher = new TeachersDetailsViewModel()
+              {
+                  FirstName = "Mr class ",
+                  LastName = "Teacher John",
+                  Department = "EEE"
+              },
+              PrimaryCourse = new Course()
+              {
+                  CourseID = 1,
+                  CourseCode = "MTS 101",
+                  CourseDescription = "Intro to Maths"
+              },
+              OptionalCourses = new List<Course>
+              {
+                  new Course()
+                  {
+                      CourseID = 34,
+                      CourseCode = "BIO 101",
+                      CourseDescription = "Essential Biology"
+                  },
+                  new Course()
+                  {
+                      CourseID = 35,
+                      CourseCode = "CHE 101",
+                      CourseDescription = "Organic Chemistry."
+                  }
+              }
             }
         };
+
 
         public IActionResult Index()
         {

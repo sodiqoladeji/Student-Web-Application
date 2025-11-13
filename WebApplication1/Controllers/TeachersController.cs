@@ -3,15 +3,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using WebApplication1.Models;
 using WebApplication1.ViewModels;
 
 namespace WebApplication1.Controllers
 {
     public class TeachersController : Controller
     {
-        private static List<TeachersDetailsViewModel> TeachersDatabase = new List<TeachersDetailsViewModel>()
+        private static List<Teachers> TeachersDatabase = new List<Teachers>()
        {
-           new TeachersDetailsViewModel{Id=1, Name ="Default Teacher", Email = "DefaultT@gmail.com", Department="Default Dept"}
+           new Teachers {Id=1, FirstName ="Default", LastName = "Teacher", Email = "DefaultT@gmail.com", Department="Default Dept"}
        };
             
         public IActionResult Index()
@@ -35,10 +36,11 @@ namespace WebApplication1.Controllers
             }
 
             int id = TeachersDatabase.Last().Id + 1;
-            TeachersDatabase.Add(new TeachersDetailsViewModel()
+            TeachersDatabase.Add(new Teachers()
             { 
                 Id = id,
-                Name = model.Name,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 Email = model.Email,
                 Department = model.Department
             });
@@ -63,20 +65,42 @@ namespace WebApplication1.Controllers
             if (model == null)
             {
                  
-                RedirectToAction("Index"); 
+               return RedirectToAction("Index"); 
             }
 
-            return View(model);
+            
+            var TeacherDetails = new TeachersDetailsViewModel()
+            {
+                Id = model.Id,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                Department = model.Department
+            };
+
+
+            return View(TeacherDetails);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = TeachersDatabase.FirstOrDefault(Teacher => Teacher.Id == id);
-            if (model == null)
+            var existingteacher = TeachersDatabase.FirstOrDefault(Teacher => Teacher.Id == id);
+            if (existingteacher == null)
             {
-                RedirectToAction("Index");
+               return RedirectToAction("Index");
             }
+            var model = new EditTeachersViewModel()
+            {
+                Id = existingteacher.Id,
+                FirstName = existingteacher.FirstName,
+                LastName = existingteacher.LastName,
+                Email = existingteacher.Email,
+                Department = existingteacher.Department
+
+
+            };
+
 
 
             return View(model);
@@ -84,7 +108,7 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(TeachersDetailsViewModel model)
+        public IActionResult Edit(EditTeachersViewModel model)
         {
             if (ModelState.IsValid == false)
             {
@@ -96,13 +120,17 @@ namespace WebApplication1.Controllers
             {
                 return NotFound();
             }
-            
-            existingTeacher.Name = model.Name;
-            existingTeacher.Email = model.Email;
-            existingTeacher.Department = model.Department;
+
+            model.Id = existingTeacher.Id;
+            model.FirstName = existingTeacher.FirstName;
+            model.LastName = existingTeacher.LastName;
+            model.Email = existingTeacher.Email;
+            model.Department = existingTeacher.Department;
 
 
-            return RedirectToAction("Details", new { id = model.Id });
+
+
+            return RedirectToAction("Details", new { id = model.Id }); 
         }
 
         [HttpGet]
