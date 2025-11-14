@@ -8,6 +8,7 @@ namespace WebApplication1.ViewModels
         public int Id { get; set; }
 
         [Required(ErrorMessage = "The FirstName field is Required")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "The LastName field is Required")]

@@ -30,6 +30,7 @@ namespace WebApplication1.Models
         [DataType(DataType.Date)]
         public DateOnly DateofBirth { get; set; } 
         public string Gender { get; set; } 
+        public StudentType StudentType { get; set; }    // Enumeration usage.
         public string CountryofBirth { get; set; } 
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; } 
