@@ -10,15 +10,28 @@ namespace WebApplication1.Controllers
 {
     public class TeachersController : Controller
     {
-        private static List<Teachers> TeachersDatabase = new List<Teachers>()
-       {
-           new Teachers {Id=1, FirstName ="Default", LastName = "Teacher", Email = "DefaultT@gmail.com", Department="Default Dept"}
-       };
-            
+        private StaticSchoolManagementDatabase database;
+
+        public TeachersController()
+        {
+            database = new StaticSchoolManagementDatabase();
+        }
+         
+
         public IActionResult Index()
         {
-            
-            return View(TeachersDatabase);
+            //var std1 = new Student();
+            //std1.FirstName = "John";
+            //std1.LastName = "Doe";
+            //std1.Id = 1;
+
+            //var std2 = new Student(2, "Sodiq", "Yusuff");
+            //var std3 = new Student(3, "Charles", "Olumo");
+
+            //var std4 = new Student("MALE");
+
+            var allTeachers = database.TeachersTable;
+            return View(allTeachers);
         }
         [HttpGet]
         public IActionResult Create() 
@@ -35,8 +48,8 @@ namespace WebApplication1.Controllers
                 
             }
 
-            int id = TeachersDatabase.Last().Id + 1;
-            TeachersDatabase.Add(new Teachers()
+            int id = database.TeachersTable.Last().Id + 1;
+            database.TeachersTable.Add(new Teachers()
             { 
                 Id = id,
                 FirstName = model.FirstName,
@@ -61,7 +74,7 @@ namespace WebApplication1.Controllers
                     break;
                 }
             }*/
-            var model = TeachersDatabase.FirstOrDefault(Teacher => Teacher.Id == id);
+            var model = database.TeachersTable.FirstOrDefault(Teacher => Teacher.Id == id);
             if (model == null)
             {
                  
@@ -85,7 +98,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var existingteacher = TeachersDatabase.FirstOrDefault(Teacher => Teacher.Id == id);
+            var existingteacher = database.TeachersTable.FirstOrDefault(Teacher => Teacher.Id == id);
             if (existingteacher == null)
             {
                return RedirectToAction("Index");
@@ -115,7 +128,7 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-            var existingTeacher = TeachersDatabase.FirstOrDefault(Teacher => Teacher.Id == model.Id);
+            var existingTeacher = database.TeachersTable.FirstOrDefault(Teacher => Teacher.Id == model.Id);
             if (existingTeacher == null)
             {
                 return NotFound();
@@ -137,7 +150,7 @@ namespace WebApplication1.Controllers
         
         public IActionResult Delete(int id)
         {
-            var model =  TeachersDatabase.FirstOrDefault(Teachers=> Teachers.Id == id);
+            var model = database.TeachersTable.FirstOrDefault(Teachers=> Teachers.Id == id);
 
             if (model == null) 
             { 
@@ -150,12 +163,12 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(TeachersDetailsViewModel model)
         {
-            var existingTeacher = TeachersDatabase.FirstOrDefault(Teacher => Teacher.Id == model.Id);
+            var existingTeacher = database.TeachersTable.FirstOrDefault(Teacher => Teacher.Id == model.Id);
             if (existingTeacher == null)
             {
                 return NotFound();
             }
-            TeachersDatabase.Remove(existingTeacher);
+            database.TeachersTable.Remove(existingTeacher);
            return RedirectToAction("Index");
         }
     }

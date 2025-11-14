@@ -7,6 +7,22 @@ namespace WebApplication1.Models
 {
     public class Student
     {
+        public Student()
+        {
+            //Id = 100; ;
+        }
+        public Student(int id, string fname, string lname)
+        {
+            Id = id;
+            FirstName = fname;
+            LastName = lname;
+        }
+        public Student (string gender)
+        {
+            Id = 200;
+            Gender = gender;
+        }
+
         public int Id { get; set; } 
         public string FirstName { get; set; }
          

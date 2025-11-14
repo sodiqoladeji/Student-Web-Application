@@ -19,6 +19,12 @@ namespace WebApplication1.Controllers
     /// </summary>
     public class StudentsController : Controller
     {
+        private StaticSchoolManagementDatabase database;
+        public StudentsController()
+        {
+            database = new StaticSchoolManagementDatabase();
+        }
+
         private static List<string> CountryList = new List<string>
         {
             "", // empty for "Select..."
@@ -29,101 +35,12 @@ namespace WebApplication1.Controllers
             "Ghana",
             "India"
         };
-        private static List<Student> StudentsDatabase = new List<Student>()
-        {
-            new Student()
-            {
-              Id = 1,
-              FirstName ="Default",
-              LastName = "Student",
-              Email = "defstd@gmail.com",
-              Gender = "Female",
-              EnrolmentDate = DateTime.Now,
-              DateofBirth = DateOnly.MinValue,
-              CountryofBirth = "Nigeria",
-              PhoneNumber = "07452737326",
-              Address = "London, United Kingdom",
-
-              ClassTeacher = new TeachersDetailsViewModel()
-              {
-                  FirstName = "Mr class Teacher John",
-                  LastName = "Doe",
-                  Department = "EEE"
-              },
-              PrimaryCourse = new Course()
-              {
-                  CourseID = 1,
-                  CourseCode = "MTS 101",
-                  CourseDescription = "Intro to Maths"
-              },
-              OptionalCourses = new List<Course>
-              {
-                  new Course()
-                  {
-                      CourseID = 34,
-                      CourseCode = "BIO 101",
-                      CourseDescription = "Essential Biology"
-                  },
-                  new Course()
-                  {
-                      CourseID = 35,
-                      CourseCode = "CHE 101",
-                      CourseDescription = "Organic Chemistry."
-                  }
-              }
-
-            },
-
-
-            new Student()
-            {
-                Id = 2,
-              FirstName ="Default",
-              LastName = "Student",
-              Email = "defstd@gmail.com",
-              Gender = "Female",
-              EnrolmentDate = DateTime.Now,
-              DateofBirth = DateOnly.MinValue,
-              CountryofBirth = "Nigeria",
-              PhoneNumber = "07452737326",
-              Address = "London, United Kingdom",
-
-              ClassTeacher = new TeachersDetailsViewModel()
-              {
-                  FirstName = "Mr class ",
-                  LastName = "Teacher John",
-                  Department = "EEE"
-              },
-              PrimaryCourse = new Course()
-              {
-                  CourseID = 1,
-                  CourseCode = "MTS 101",
-                  CourseDescription = "Intro to Maths"
-              },
-              OptionalCourses = new List<Course>
-              {
-                  new Course()
-                  {
-                      CourseID = 34,
-                      CourseCode = "BIO 101",
-                      CourseDescription = "Essential Biology"
-                  },
-                  new Course()
-                  {
-                      CourseID = 35,
-                      CourseCode = "CHE 101",
-                      CourseDescription = "Organic Chemistry."
-                  }
-              }
-            }
-        };
-
-
         public IActionResult Index()
         {
-            
+           
+            var allStudents = database.StudentsTable;
 
-            return View(StudentsDatabase);
+            return View(allStudents);
         }
 
         [HttpGet]
@@ -157,7 +74,7 @@ namespace WebApplication1.Controllers
             // and now we can add the new student to the database
 
             // generate a random id for the new student
-            int id = StudentsDatabase.Last().Id + 1; // new Random().Next(1, 100);
+            int id = database.StudentsTable.Last().Id + 1; // new Random().Next(1, 100);
             var mappedStudent = new Student()
             {
                 Id = id,
@@ -171,7 +88,7 @@ namespace WebApplication1.Controllers
                 Address = model.Address,
                 EnrolmentDate = DateTime.Now,
             };
-            StudentsDatabase.Add(mappedStudent);
+            database.StudentsTable.Add(mappedStudent);
 
             return RedirectToAction("Index");
 
@@ -182,7 +99,7 @@ namespace WebApplication1.Controllers
         public IActionResult Details(int id)
         {
 
-            Student studentRecord = StudentsDatabase.FirstOrDefault(student => student.Id == id);
+            Student studentRecord = database.StudentsTable.FirstOrDefault(student => student.Id == id);
             if (studentRecord == null)
             {
                 RedirectToAction("Index");
@@ -210,7 +127,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var studentRecord = StudentsDatabase.FirstOrDefault(s=>s.Id == id);
+            var studentRecord = database.StudentsTable.FirstOrDefault(s=>s.Id == id);
             if (studentRecord == null) 
             { 
                 return NotFound();
@@ -243,7 +160,7 @@ namespace WebApplication1.Controllers
                 return View(model);
             }
 
-            var existingstudent = StudentsDatabase.FirstOrDefault(s => s.Id == model.Id);
+            var existingstudent = database.StudentsTable.FirstOrDefault(s => s.Id == model.Id);
             if (existingstudent == null)
             {
                 return NotFound();
@@ -264,7 +181,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var model = StudentsDatabase.FirstOrDefault(s => s.Id == id);
+            var model = database.StudentsTable.FirstOrDefault(s => s.Id == id);
             if (ModelState.IsValid == false) 
             {
                 return NotFound();
@@ -278,13 +195,13 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(StudentDetailViewModel model)
         {
-            var existingstudent = StudentsDatabase.FirstOrDefault(s => s.Id == model.Id);
+            var existingstudent = database.StudentsTable.FirstOrDefault(s => s.Id == model.Id);
             if (existingstudent == null) 
             {
                 return NotFound();
             }
-            
-            StudentsDatabase.Remove(existingstudent);
+
+            database.StudentsTable.Remove(existingstudent);
             return RedirectToAction("Index");
         }
     }
