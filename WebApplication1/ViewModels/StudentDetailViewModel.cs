@@ -22,7 +22,7 @@ namespace WebApplication1.ViewModels
         public DateOnly DateofBirth { get; set; }
 
         [Required(ErrorMessage = "The Gender field is Required")]
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }  
 
         [Required(ErrorMessage = "The CountryofBirth field is Required")]
         [MaxLength(56, ErrorMessage = "Country of Birth cannot exceed 56 characters")]
@@ -41,11 +41,14 @@ namespace WebApplication1.ViewModels
         [Required(ErrorMessage = "The Address field is Required")]
         public string Address { get; set; }
 
+        [DataType(DataType.Upload)]
+        public string ProfilePicture { get; set; }  
+
         [Required(ErrorMessage = "The Enrollment field is Required")]
         [DataType(DataType.Date)]
         public DateTime EnrolmentDate { get; set; }
 
-        public TeachersDetailsViewModel ClassTeacher { get; set; } 
+        public Teachers ClassTeacher { get; set; } 
         public Course PrimaryCourse { get; set; }
         public List<Course> OptionalCourses { get; set; }
     }

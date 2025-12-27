@@ -27,7 +27,6 @@ namespace WebApplication1.Controllers
 
         private static List<string> CountryList = new List<string>
         {
-            "", // empty for "Select..."
             "United States",
             "United Kingdom",
             "Canada",
@@ -86,6 +85,7 @@ namespace WebApplication1.Controllers
                 PhoneNumber = model.PhoneNumber,
                 Email = model.Email,
                 Address = model.Address,
+                ProfilePicture = model.ProfilePicture,  
                 EnrolmentDate = DateTime.Now,
             };
             database.StudentsTable.Add(mappedStudent);
@@ -99,7 +99,7 @@ namespace WebApplication1.Controllers
         public IActionResult Details(int id)
         {
 
-            Student studentRecord = database.StudentsTable.FirstOrDefault(student => student.Id == id);
+            var studentRecord = database.StudentsTable.FirstOrDefault(student => student.Id == id);
             if (studentRecord == null)
             {
                 RedirectToAction("Index");
@@ -114,6 +114,7 @@ namespace WebApplication1.Controllers
                 PhoneNumber = studentRecord.PhoneNumber,
                 Email = studentRecord.Email,
                 Address = studentRecord.Address,
+                ProfilePicture = studentRecord.ProfilePicture,  
                 EnrolmentDate = studentRecord.EnrolmentDate,
                 ClassTeacher = studentRecord.ClassTeacher,
                 PrimaryCourse = studentRecord.PrimaryCourse,
@@ -135,14 +136,16 @@ namespace WebApplication1.Controllers
 
             var model = new EditStudentViewModel()
             {
-                Email = studentRecord.Email,
-                PhoneNumber = studentRecord.PhoneNumber,
                 Id = studentRecord.Id,
-                Address = studentRecord.Address,
-                LastName = studentRecord.LastName,
                 FirstName = studentRecord.FirstName,
-
-
+                LastName = studentRecord.LastName,
+                DateofBirth = studentRecord.DateofBirth,
+                Gender = studentRecord.Gender,
+                CountryofBirth = studentRecord.CountryofBirth,
+                PhoneNumber = studentRecord.PhoneNumber,
+                Email = studentRecord.Email,
+                Address = studentRecord.Address,
+                ProfilePicture = studentRecord.ProfilePicture, 
             };
             // supply countries and set selected to the existing value
             ViewBag.Countries = new SelectList(CountryList, model.CountryofBirth);
@@ -174,6 +177,7 @@ namespace WebApplication1.Controllers
             existingstudent.PhoneNumber = model.PhoneNumber;
             existingstudent.Address = model.Address;
             existingstudent.Email = model.Email;
+            existingstudent.ProfilePicture = model.ProfilePicture;  
             existingstudent.EnrolmentDate = DateTime.Now;
 
             return RedirectToAction("Details", new { id = model.Id });

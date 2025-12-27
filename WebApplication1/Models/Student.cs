@@ -17,7 +17,7 @@ namespace WebApplication1.Models
             FirstName = fname;
             LastName = lname;
         }
-        public Student (string gender)
+        public Student (Gender gender)
         {
             Id = 200;
             Gender = gender;
@@ -29,18 +29,18 @@ namespace WebApplication1.Models
         public string LastName { get; set; } 
         [DataType(DataType.Date)]
         public DateOnly DateofBirth { get; set; } 
-        public string Gender { get; set; } 
+        public Gender Gender { get; set; }  // Changed from string to Gender enum
         public StudentType StudentType { get; set; }    // Enumeration usage.
         public string CountryofBirth { get; set; } 
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; } 
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; } 
-        public string Address { get; set; } 
+        public string Address { get; set; }
+        [DataType(DataType.Url)]
+        public string ProfilePicture { get; set; }  // URL to profile picture
         [DataType(DataType.Date)]
         public DateTime EnrolmentDate { get; set; }
-
-
 
         public List<string> NickNames { get; set; }   // [batalion, empire, sabiboy]
 
@@ -48,7 +48,7 @@ namespace WebApplication1.Models
         // A student can have 1 class teacher.
 
         // RELATIONSHIP
-        public TeachersDetailsViewModel ClassTeacher { get; set; }  // many to 1 mapping. a student can have one class teacher
+        public Teachers ClassTeacher { get; set; }  // many to 1 mapping. a student can have one class teacher
         public Course PrimaryCourse { get; set; }      // 1 to 1 mapping. a student has one course
         public List<Course> OptionalCourses { get; set; }   // 1 to many mapping. a student can have many optional courses
     }

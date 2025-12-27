@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Sockets;
+using WebApplication1.Models;
 
 namespace WebApplication1.ViewModels
 {
@@ -9,10 +10,11 @@ namespace WebApplication1.ViewModels
         public int Id { get; set; }
 
         [Required(ErrorMessage = "The FirstName field is Required")]
-        
+        [MaxLength(15)]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "The LastName field is Required")]
+        [MaxLength(15)]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "The DateofBirth field is Required")]
@@ -20,7 +22,7 @@ namespace WebApplication1.ViewModels
         public DateOnly DateofBirth { get; set; }
 
         [Required(ErrorMessage = "The Gender field is Required")]
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }  
 
         [Required(ErrorMessage = "The CountryofBirth field is Required")]
         [MaxLength(56, ErrorMessage = "Country of Birth cannot exceed 56 characters")]
@@ -40,7 +42,10 @@ namespace WebApplication1.ViewModels
         
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "The Enrollment field is Required")]
+        [DataType(DataType.Upload)]
+        public string ProfilePicture { get; set; }  
+
+        
         [DataType(DataType.Date)]
         public DateTime EnrolmentDate { get; set; }
 

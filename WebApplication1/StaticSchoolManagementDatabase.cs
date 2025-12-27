@@ -12,17 +12,17 @@ namespace WebApplication1
             new Student()
             {
               Id = 1,
-              FirstName ="Default",
-              LastName = "Student",
-              Email = "defstd@gmail.com",
-              Gender = "Female",
+              FirstName ="John",
+              LastName = "Smith",
+              Email = "JSmith@gmail.com",
+              Gender = Gender.Female,  
               EnrolmentDate = DateTime.Now,
-              DateofBirth = DateOnly.MinValue,
+              DateofBirth = new DateOnly(2000, 1, 1),
               CountryofBirth = "Nigeria",
               PhoneNumber = "07452737326",
               Address = "London, United Kingdom",
-
-              ClassTeacher = new TeachersDetailsViewModel()
+              ProfilePicture = "https://picsum.photos/200/300",  
+              ClassTeacher = new Teachers()
               {
                   FirstName = "Mr class Teacher John",
                   LastName = "Doe",
@@ -56,20 +56,21 @@ namespace WebApplication1
             new Student()
             {
                 Id = 2,
-              FirstName ="Default",
-              LastName = "Student",
-              Email = "defstd@gmail.com",
-              Gender = "Female",
+              FirstName ="Cecilia",
+              LastName = "Pessoa",
+              Email = "CPessoa@gmail.com",
+              Gender = Gender.Female,  
               EnrolmentDate = DateTime.Now,
-              DateofBirth = DateOnly.MinValue,
+              DateofBirth = new DateOnly(1992,03,17),
               CountryofBirth = "Nigeria",
               PhoneNumber = "07452737326",
               Address = "London, United Kingdom",
+              ProfilePicture = "https://picsum.photos/200/300",  
 
-              ClassTeacher = new TeachersDetailsViewModel()
+              ClassTeacher = new Teachers()
               {
-                  FirstName = "Mr class ",
-                  LastName = "Teacher John",
+                  FirstName = "Sheila",
+                  LastName = "Butler",
                   Department = "EEE"
               },
               PrimaryCourse = new Course()
@@ -98,7 +99,7 @@ namespace WebApplication1
 
         public List<Teachers> TeachersTable = new List<Teachers>()
         {
-            new Teachers {Id=1, FirstName ="Default", LastName = "Teacher", Email = "DefaultT@gmail.com", Department="Default Dept"}
+            new Teachers {Id=1, FirstName ="Sheila", LastName = "Butler", Email = "SButler@gmail.com", Department="Physics Dept"}
         };
 
         // CREATE OTHER TABLES

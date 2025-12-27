@@ -19,13 +19,188 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: #f8f9fa;
 }
 
 form .form-group .form-control {
   margin-bottom: 10px;
 }
+
 .field-validation-error {
     color: red; 
     font-size: 14px; 
     margin-top: 4px; 
+}
+
+/* Professional Form Styling */
+.card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card-header {
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+.form-label {
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+.form-control::placeholder {
+    color: #adb5bd;
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.btn-outline-secondary:hover {
+    transform: translateY(-2px);
+}
+
+.text-danger.small {
+    font-size: 0.875rem;
+    display: block;
+    margin-top: 0.25rem;
+}
+
+.shadow-sm {
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Table Styling */
+.table {
+    font-size: 0.95rem;
+}
+
+.table thead th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #dee2e6;
+    padding: 1rem;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+    transform: scale(1.01);
+}
+
+.table td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.btn-group .btn {
+    padding: 0.4rem 0.8rem;
+    margin: 0 2px;
+}
+
+.btn-sm {
+    font-size: 0.875rem;
+}
+
+/* Badge Styling */
+.badge {
+    padding: 0.5rem 0.8rem;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+/* Alert Styling */
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.alert-info {
+    background-color: #e7f3ff;
+    color: #0c5460;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Success Button Gradient */
+.btn-success {
+    background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+    border: none;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #146c43 0%, #0f5132 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+}
+
+/* Warning Button & Styles for Teachers */
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    border: none;
+    color: #000;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+    color: #000;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+/* Info Styles */
+.text-info {
+    color: #0dcaf0 !important;
+}
+
+.bg-info {
+    background-color: #0dcaf0 !important;
 }

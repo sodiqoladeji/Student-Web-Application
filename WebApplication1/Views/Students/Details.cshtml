@@ -1,101 +1,178 @@
-﻿@using WebApplication1.ViewModels
-@model StudentDetailViewModel;
-
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WebApplication1.ViewModels.StudentDetailViewModel;
 @{
+    ViewData["Title"] = "Student Details";
 }
 
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h3 class="mb-0">
+                        <i class="bi bi-person-badge"></i> Student Details
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    
+                    <!-- Personal Information -->
+                    <div class="mb-4">
+                        <h5 class="border-bottom pb-2 mb-3 text-info">
+                            👤 Personal Information
+                        </h5>
+                        <div class="row">
+                            <!-- Profile Picture Column -->
+                            <div class="col-md-4 mb-3 text-center">
+                                @if (!string.IsNullOrEmpty(Model.ProfilePicture))
+                                {
+                                    <img src="@Model.ProfilePicture" 
+                                         alt="@Model.FirstName @Model.LastName" 
+                                         class="img-fluid rounded-circle shadow-sm mb-2" 
+                                         style="width: 200px; height: 200px; object-fit: cover; border: 4px solid #17a2b8;" 
+                                         onerror="this.src='https://via.placeholder.com/200?text=No+Photo';" />
+                                    <p class="text-muted small">Profile Picture</p>
+                                }
+                                else
+                                {
+                                    <div class="bg-light rounded-circle d-flex align-items-center justify-content-center shadow-sm mb-2" 
+                                         style="width: 200px; height: 200px; margin: 0 auto; border: 4px solid #17a2b8;">
+                                        <i class="bi bi-person-circle text-muted" style="font-size: 100px;"></i>
+                                    </div>
+                                    <p class="text-muted small">No Profile Picture</p>
+                                }
+                            </div>
+                            
+                            <!-- Student Information Column -->
+                            <div class="col-md-8">
+                            <div class="" >
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="text-muted small mb-1">Student ID</label>
+                                        <div class="fw-bold"><span class="badge bg-secondary">@Model.Id</span></div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="text-muted small mb-1">Enrollment Date</label>
+                                        <div class="fw-bold"><i class="bi bi-calendar-check text-success"></i> @Model.EnrolmentDate.ToString("MMMM dd, yyyy")</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="text-muted small mb-1">First Name</label>
+                                        <div class="fw-bold">@Model.FirstName</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="text-muted small mb-1">Last Name</label>
+                                        <div class="fw-bold">@Model.LastName</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="text-muted small mb-1">Date of Birth</label>
+                                        <div class="fw-bold">@Model.DateofBirth.ToString("MMMM dd, yyyy")</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="text-muted small mb-1">Gender</label>
+                                        <div class="fw-bold">@Model.Gender</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="text-muted small mb-1">Country of Birth</label>
+                            <div class="fw-bold">🌍 @Model.CountryofBirth</div>
+                        </div>
+                    </div>
 
-<h2>Student Details</h2>
+                        <!-- Contact Information -->
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2 mb-3 text-info">
+                                📞 Contact Information
+                            </h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="text-muted small mb-1">Email</label>
+                                    <div class="fw-bold"><i class="bi bi-envelope"></i> @Model.Email</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="text-muted small mb-1">Phone Number</label>
+                                    <div class="fw-bold"><i class="bi bi-telephone"></i> @Model.PhoneNumber</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-muted small mb-1">Address</label>
+                                <div class="fw-bold"><i class="bi bi-house"></i> @Model.Address</div>
+                            </div>
+                        </div>
 
-<table class="table">
-    <tr>
-        <th>ID</th>
-        <td>@Model.Id</td>
-    </tr>
-    <tr>
-        <th>First Name</th>
-        <td>@Model.FirstName</td>
-    </tr>
-    <tr>
-        <th>Last Name</th>
-        <td>@Model.LastName</td>
-    </tr>
-    <tr>
-        <th>Date of Birth</th>
-		<td>@Model.DateofBirth</td>
-	</tr>
-    <tr>
-		<th>Gender</th>
-		<td>@Model.Gender</td>
-    </tr>
-    <tr>
-        <th>Country of Birth</th>
-		<td>@Model.CountryofBirth</td>
-    <tr>
-        <th>Email</th>
-        <td>@Model.Email</td>
-    </tr>
-    <tr>
-        <th>Phone Number</th>
-		<td>@Model.PhoneNumber</td>
-	</tr>
-    <tr>
-		<th>Address</th>
-		<td>@Model.Address</td>
-	</tr>
+                        <!-- Class Teacher -->
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2 mb-3 text-info">
+                                👨‍🏫 Class Teacher
+                            </h5>
+                            @if(Model.ClassTeacher != null)
+                            {
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="text-muted small mb-1">Name</label>
+                                                <div class="fw-bold">@Model.ClassTeacher.FirstName @Model.ClassTeacher.LastName</div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="text-muted small mb-1">Department</label>
+                                                <div class="fw-bold">@Model.ClassTeacher.Department</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-warning">No class teacher assigned</div>
+                            }
+                        </div>
 
-    <tr>
-        <th>Enrollment Date</th>
-        <td>@Model.EnrolmentDate</td>
-    </tr>
-       
-</table>
+                        <!-- Primary Course -->
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2 mb-3 text-info">
+                                📚 Primary Course
+                            </h5>
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-2">
+                                            <label class="text-muted small mb-1">Course ID</label>
+                                            <div class="fw-bold"><span class="badge bg-primary">@Model.PrimaryCourse.CourseID</span></div>
+                                        </div>
+                                        <div class="col-md-4 mb-2">
+                                            <label class="text-muted small mb-1">Course Code</label>
+                                            <div class="fw-bold">@Model.PrimaryCourse.CourseCode</div>
+                                        </div>
+                                        <div class="col-md-12 mb-2">
+                                            <label class="text-muted small mb-1">Description</label>
+                                            <div class="fw-bold">@Model.PrimaryCourse.CourseDescription</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-<h2 class="section-heading">Class Teacher</h2>
-@if(Model.ClassTeacher != null)
-{
-    <div>
-		Name: @Model.ClassTeacher.FirstName @Model.ClassTeacher.LastName
+                        <!-- Optional Courses using Partial View -->
+                        <partial name="_OptionalCoursesPartial" model="Model.OptionalCourses" />
 
-        Department: @Model.ClassTeacher.Department
+                        <!-- Action Buttons -->
+                        <div class="d-flex gap-2 justify-content-end mt-4 pt-3 border-top">
+                            <a asp-controller="Students" asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                            <a asp-controller="Students" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                                <i class="bi bi-pencil"></i> Edit Student
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-}
-
-<h2 class="section-heading">Primary Course</h2>
-
-<div>
-    <strong>CourseID:</strong> @Model.PrimaryCourse.CourseID<br />
-    <strong>CourseCode:</strong> @Model.PrimaryCourse.CourseCode<br />
-    <strong>CourseDescription:</strong> @Model.PrimaryCourse.CourseDescription
 </div>
-        
-
-<h2 class="section-heading">Optional Courses</h2>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>CourseID</th>
-            <th>CourseCode</th>
-            <th>CourseDescription</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var course in Model.OptionalCourses)
-        {
-            <tr>
-                <td>@course.CourseID</td>
-                <td>@course.CourseCode</td>
-                <td>@course.CourseDescription</td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
-
-
-       

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using WebApplication1.Models;
 
 namespace WebApplication1.ViewModels
 {
@@ -12,6 +13,7 @@ namespace WebApplication1.ViewModels
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "The LastName field is Required")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "The DateofBirth field is Required")]
@@ -19,7 +21,7 @@ namespace WebApplication1.ViewModels
         public DateOnly DateofBirth { get; set; }
 
         [Required(ErrorMessage = "The Gender field is Required")]
-        public string Gender { get; set; }
+        public Gender Gender { get; set; }  
 
         [Required(ErrorMessage = "The CountryofBirth field is Required")]
         [MaxLength(56, ErrorMessage = "Country of Birth cannot exceed 56 characters")]
@@ -37,6 +39,9 @@ namespace WebApplication1.ViewModels
 
         [Required(ErrorMessage = "The Address field is Required")]
         public string Address { get; set; }
+
+        [DataType(DataType.Upload)]
+        public string ProfilePicture { get; set; }  
 
         [Required(ErrorMessage = "The Enrollment field is Required")]
         [DataType(DataType.Date)]

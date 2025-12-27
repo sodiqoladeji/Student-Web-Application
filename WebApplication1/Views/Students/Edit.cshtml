@@ -1,102 +1,107 @@
 ﻿@model WebApplication1.ViewModels.EditStudentViewModel;
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+    ViewData["Title"] = "Edit Student";
 }
 
-<h2>Edit Student</h2>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">
+                        <i class="bi bi-pencil-square"></i> Edit Student
+                    </h3>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-controller="Students" asp-action="Edit" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <input asp-for="Id" type="hidden" />
 
-<form asp-controller="Students" asp-action="Edit" method="post">
-    @Html.AntiForgeryToken()
+                        <!-- Personal Information Section -->
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2 mb-3 text-primary">
+                                👤 Personal Information
+                            </h5>
+                            
+                            <!-- Profile Picture URL Input -->
+                            <div class="mb-3">
+                                <label asp-for="ProfilePicture" class="form-label fw-bold">Upload Profile Picture</label>
+                                <input asp-for="ProfilePicture" type="file" class="form-control" accept="image/*"/>
+                                <span asp-validation-for="ProfilePicture" class="text-danger small"></span>
+                            </div>
 
-    @* Id hidden so server knows which student to update *@
-    <input asp-for="Id" type="hidden" />
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="FirstName" class="form-label fw-bold"></label>
+                                    <input asp-for="FirstName" class="form-control" placeholder="Enter First name" />
+                                    <span asp-validation-for="FirstName" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="LastName" class="form-label fw-bold"></label>
+                                    <input asp-for="LastName" class="form-control" placeholder="Enter Last name" />
+                                    <span asp-validation-for="LastName" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="DateofBirth" class="form-label fw-bold"></label>
+                                    <input asp-for="DateofBirth" class="form-control" type="date" min="1960-01-01" max="2010-01-01" placeholder="Select Date of Birth"/>
+                                    <span asp-validation-for="DateofBirth" class="text-danger small"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Gender" class="form-label fw-bold"></label>
+                                    <select asp-for="Gender" asp-items="Html.GetEnumSelectList<WebApplication1.Models.Gender>()" class="form-select">
+                                        <option value="">Select Gender</option>
+                                    </select>
+                                    <span asp-validation-for="Gender" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="CountryofBirth" class="form-label fw-bold"></label>
+                                <select asp-for="CountryofBirth" asp-items="ViewBag.Countries" class="form-select">
+                                    <option value="" disabled selected>Select Country</option>
+                                </select>
+                                <span asp-validation-for="CountryofBirth" class="text-danger small"></span>
+                            </div>
+                        </div>
 
-    <div class="form-group">
-        <label asp-for="FirstName" class="control-label"></label>
-        <input asp-for="FirstName" class="form-control" />
-        <span asp-validation-for="FirstName" class="text-danger"></span>
+                        <!-- Contact Information Section -->
+                        <div class="mb-4">
+                            <h5 class="border-bottom pb-2 mb-3 text-primary">
+                                📞 Contact Information
+                            </h5>
+                            <div class="mb-3">
+                                <label asp-for="PhoneNumber" class="form-label fw-bold"></label>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="+1 234 567 8900" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Email" class="form-label fw-bold"></label>
+                                <input asp-for="Email" class="form-control" type="email" placeholder="student@example.com" />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Address" class="form-label fw-bold"></label>
+                                <textarea asp-for="Address" class="form-control" rows="3" placeholder="Enter full address"></textarea>
+                                <span asp-validation-for="Address" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <!-- Action Buttons -->
+                        <div class="d-flex gap-2 justify-content-end mt-4 pt-3 border-top">
+                            <a asp-controller="Students" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="bi bi-check-circle"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="LastName" class="control-label"></label>
-        <input asp-for="LastName" class="form-control" />
-        <span asp-validation-for="LastName" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="DateofBirth" class="control-label"></label>
-        <input asp-for="DateofBirth" class="form-control" />
-        <span asp-validation-for="DateofBirth" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Gender" class="control-label"></label>
-        <input asp-for="Gender" class="form-control" />
-        <select asp-for="Gender" class="form-control">
-            <option value="">Select gender</option>
-            <option value="Male" selected="@(Model?.Gender == "Male")">Male</option>
-            <option value="Female" selected="@(Model?.Gender == "Female")">Female</option>
-        </select>
-        <span asp-validation-for="Gender" class="text-danger"></span>
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="CountryofBirth" class="control-label"></label>
-        <select asp-for="CountryofBirth" asp-items="ViewBag.Countries" class="form-control">
-            <option value="">Select country</option>
-        </select>
-        <span asp-validation-for="CountryofBirth" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PhoneNumber" class="control-label"></label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Address" class="control-label"></label>
-        <input asp-for="Address" class="form-control" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="EnrolmentDate" class="control-label"></label>
-        <div class="form-control-plaintext">@Model.EnrolmentDate.ToString("yyyy-MM-dd")</div>
-        <span asp-validation-for="EnrolmentDate" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save</button>
-    <a asp-controller="Students" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">Cancel</a>
-</form>
+</div>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
-
-
-
-
-
-
-
-
-
-
-
-<!-- Delete (POST with anti-forgery) -->
-@*<form asp-controller="Students" asp-action="Delete" method="post" style="display:inline">
-    @Html.AntiForgeryToken()
-    <input type="hidden" name="id" value="@Model.Id" />
-    <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this student?');">🗑️ Delete</button>
-</form>
-
-<a asp-controller="Students" asp-action="Index" class="btn btn-secondary">Back</a>*@

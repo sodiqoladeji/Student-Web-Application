@@ -1,0 +1,36 @@
+﻿@model List<WebApplication1.Models.Course>
+
+<!-- Optional Courses Section -->
+<div class="mb-4">
+    <h5 class="border-bottom pb-2 mb-3 text-info">
+        📖 Optional Courses
+    </h5>
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var course in Model)
+                    {
+                        <tr>
+                            <td><span class="badge bg-info">@course.CourseID</span></td>
+                            <td>@course.CourseCode</td>
+                            <td>@course.CourseDescription</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">No optional courses enrolled</div>
+    }
+</div>
