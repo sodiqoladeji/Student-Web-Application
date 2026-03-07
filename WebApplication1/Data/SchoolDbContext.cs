@@ -11,5 +11,7 @@ namespace WebApplication1.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlServer($"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SodiqSchoolDb;Integrated Security=True;Encrypt=False;Trust Server Certificate=True");
+   
+    
     }
 }
