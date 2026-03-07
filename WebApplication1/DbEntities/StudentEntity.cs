@@ -12,5 +12,8 @@
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string City { get; set; }
+
+        // RELATIONSHIP IN Entity framework
+        // 1-1, 1-Many, Many-Many
     }
 }

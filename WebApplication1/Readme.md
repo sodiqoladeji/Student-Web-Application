@@ -1,5 +1,10 @@
 # Assignment
 
+## March 7 2026
+- As we did in the StudentsConroller, update the Teachers controller by removing the in-memory fake db and now use the dbContext.
+- Add relationships to the StudentEntity class (and other necessary classes), and run migrations.
+- Delete all instances of the fake database and ensure the project still runs end to end!
+
 ## 11/13/2025:
 - the input elements are too long (eg the firstname).
 - use proper "display names" (eg First Name for the firstname field).
