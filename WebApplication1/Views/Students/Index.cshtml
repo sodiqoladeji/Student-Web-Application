@@ -1,5 +1,5 @@
 ﻿@using WebApplication1.ViewModels
-@model List<Student>
+@model List<WebApplication1.DbEntities.StudentEntity>
 @{
     ViewData["Title"] = "Students";
 }
@@ -39,9 +39,9 @@
                                 <td class="align-middle">
                                     <i class="bi bi-envelope text-muted"></i> @student.Email
                                 </td>
-                                <td class="align-middle">
+                                @* <td class="align-middle">
                                     <i class="bi bi-calendar text-muted"></i> @student.EnrolmentDate.ToString("MMM dd, yyyy")
-                                </td>
+                                </td> *@
                                 <td class="align-middle text-center">
                                     <div class="btn-group" role="group">
                                         <a class="btn btn-sm btn-outline-info" asp-controller="Students" asp-action="Details" asp-route-id="@student.Id" title="View Details">

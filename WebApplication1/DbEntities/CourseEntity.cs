@@ -6,7 +6,9 @@ namespace WebApplication1.DbEntities
     {
         public int Id { get; set; }    
         public string CourseCode { get; set; }   
-        public string CourseDescription { get; set; }  
+        public string CourseDescription { get; set; }
+        //New requirement is to add the number of units for each course.
+        public int Unit { get; set; }
     }
 
     //public class Phone

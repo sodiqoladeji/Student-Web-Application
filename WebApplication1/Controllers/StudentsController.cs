@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using WebApplication1.Data;
+using WebApplication1.DbEntities;
 using WebApplication1.Models;
 using WebApplication1.ViewModels;
 
@@ -19,10 +21,12 @@ namespace WebApplication1.Controllers
     /// </summary>
     public class StudentsController : Controller
     {
-        private StaticSchoolManagementDatabase database;
+        //private StaticSchoolManagementDatabase database;
+        private readonly SchoolDbContext dbContext;
         public StudentsController()
         {
-            database = new StaticSchoolManagementDatabase();
+            //database = new StaticSchoolManagementDatabase();
+            dbContext = new SchoolDbContext();
         }
 
         private static List<string> CountryList = new List<string>
@@ -36,8 +40,9 @@ namespace WebApplication1.Controllers
         };
         public IActionResult Index()
         {
-           
-            var allStudents = database.StudentsTable;
+
+            //var allStudents = database.StudentsTable;
+            var allStudents = dbContext.Students.ToList();
 
             return View(allStudents);
         }
@@ -73,22 +78,36 @@ namespace WebApplication1.Controllers
             // and now we can add the new student to the database
 
             // generate a random id for the new student
-            int id = database.StudentsTable.Last().Id + 1; // new Random().Next(1, 100);
-            var mappedStudent = new Student()
+            //int id = database.StudentsTable.Last().Id + 1; // new Random().Next(1, 100);
+            // R in CRUD = reading.
+            int id = dbContext.Students.OrderBy(x => x.Id).Last().Id + 1;
+            //var mappedStudent = new Student()
+            //{
+            //    Id = id,
+            //    FirstName = model.FirstName,
+            //    LastName = model.LastName,
+            //    DateofBirth = model.DateofBirth,
+            //    Gender = model.Gender,
+            //    CountryofBirth = model.CountryofBirth,
+            //    PhoneNumber = model.PhoneNumber,
+            //    Email = model.Email,
+            //    Address = model.Address,
+            //    ProfilePicture = model.ProfilePicture,  
+            //    EnrolmentDate = DateTime.Now,
+            //};
+            var mappedStudentEntity = new StudentEntity()
             {
-                Id = id,
+                //Id = id,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                DateofBirth = model.DateofBirth,
-                Gender = model.Gender,
-                CountryofBirth = model.CountryofBirth,
                 PhoneNumber = model.PhoneNumber,
                 Email = model.Email,
-                Address = model.Address,
-                ProfilePicture = model.ProfilePicture,  
-                EnrolmentDate = DateTime.Now,
+                AddressLine1 = model.Address,
             };
-            database.StudentsTable.Add(mappedStudent);
+            //database.StudentsTable.Add(mappedStudent);
+            // C in CRUD = creating
+            dbContext.Students.Add(mappedStudentEntity);
+            dbContext.SaveChanges();    // Very important to call this method after making changes to the database context, otherwise the changes won't be persisted to the database.
 
             return RedirectToAction("Index");
 
@@ -99,7 +118,8 @@ namespace WebApplication1.Controllers
         public IActionResult Details(int id)
         {
 
-            var studentRecord = database.StudentsTable.FirstOrDefault(student => student.Id == id);
+            //var studentRecord = database.StudentsTable.FirstOrDefault(student => student.Id == id);
+            var studentRecord = dbContext.Students.FirstOrDefault(student => student.Id == id);
             if (studentRecord == null)
             {
                 RedirectToAction("Index");
@@ -109,16 +129,20 @@ namespace WebApplication1.Controllers
                 Id = studentRecord.Id,
                 FirstName = studentRecord.FirstName,
                 LastName = studentRecord.LastName,
-                DateofBirth = studentRecord.DateofBirth,
-                CountryofBirth = studentRecord.CountryofBirth,
+                //DateofBirth = studentRecord.DateofBirth,
+                //CountryofBirth = studentRecord.CountryofBirth,
                 PhoneNumber = studentRecord.PhoneNumber,
                 Email = studentRecord.Email,
-                Address = studentRecord.Address,
-                ProfilePicture = studentRecord.ProfilePicture,  
-                EnrolmentDate = studentRecord.EnrolmentDate,
-                ClassTeacher = studentRecord.ClassTeacher,
-                PrimaryCourse = studentRecord.PrimaryCourse,
-                OptionalCourses = studentRecord.OptionalCourses
+                //Address = studentRecord.Address,
+                //ProfilePicture = studentRecord.ProfilePicture,  
+                //EnrolmentDate = studentRecord.EnrolmentDate,
+                //ClassTeacher = studentRecord.ClassTeacher,
+                //PrimaryCourse = studentRecord.PrimaryCourse,
+                //OptionalCourses = studentRecord.OptionalCourses
+
+                ClassTeacher = new Teachers(),
+                PrimaryCourse = new Course(),
+                OptionalCourses = new List<Course>()
             };
 
             
@@ -128,7 +152,8 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var studentRecord = database.StudentsTable.FirstOrDefault(s=>s.Id == id);
+            //var studentRecord = database.StudentsTable.FirstOrDefault(s=>s.Id == id);
+            var studentRecord = dbContext.Students.FirstOrDefault(s => s.Id == id);
             if (studentRecord == null) 
             { 
                 return NotFound();
@@ -139,13 +164,13 @@ namespace WebApplication1.Controllers
                 Id = studentRecord.Id,
                 FirstName = studentRecord.FirstName,
                 LastName = studentRecord.LastName,
-                DateofBirth = studentRecord.DateofBirth,
-                Gender = studentRecord.Gender,
-                CountryofBirth = studentRecord.CountryofBirth,
+                //DateofBirth = studentRecord.DateofBirth,
+                //Gender = studentRecord.Gender,
+                //CountryofBirth = studentRecord.CountryofBirth,
                 PhoneNumber = studentRecord.PhoneNumber,
                 Email = studentRecord.Email,
-                Address = studentRecord.Address,
-                ProfilePicture = studentRecord.ProfilePicture, 
+                //Address = studentRecord.Address,
+                //ProfilePicture = studentRecord.ProfilePicture, 
             };
             // supply countries and set selected to the existing value
             ViewBag.Countries = new SelectList(CountryList, model.CountryofBirth);
@@ -163,7 +188,8 @@ namespace WebApplication1.Controllers
                 return View(model);
             }
 
-            var existingstudent = database.StudentsTable.FirstOrDefault(s => s.Id == model.Id);
+            //var existingstudent = database.StudentsTable.FirstOrDefault(s => s.Id == model.Id);
+            var existingstudent = dbContext.Students.FirstOrDefault(s => s.Id == model.Id);
             if (existingstudent == null)
             {
                 return NotFound();
@@ -171,21 +197,25 @@ namespace WebApplication1.Controllers
             existingstudent.Id = model.Id;
             existingstudent.FirstName = model.FirstName;
             existingstudent.LastName = model.LastName;
-            existingstudent.DateofBirth = model.DateofBirth;
-            existingstudent.CountryofBirth = model.CountryofBirth;
-            existingstudent.Gender = model.Gender;
+            //existingstudent.DateofBirth = model.DateofBirth;
+            //existingstudent.CountryofBirth = model.CountryofBirth;
+            //existingstudent.Gender = model.Gender;
             existingstudent.PhoneNumber = model.PhoneNumber;
-            existingstudent.Address = model.Address;
-            existingstudent.Email = model.Email;
-            existingstudent.ProfilePicture = model.ProfilePicture;  
-            existingstudent.EnrolmentDate = DateTime.Now;
+            existingstudent.AddressLine1 = model.Address;
+            //existingstudent.Email = model.Email;
+            //existingstudent.ProfilePicture = model.ProfilePicture;  
+            //existingstudent.EnrolmentDate = DateTime.Now;
+
+            dbContext.Students.Update(existingstudent);
+            dbContext.SaveChanges();
 
             return RedirectToAction("Details", new { id = model.Id });
         }
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var model = database.StudentsTable.FirstOrDefault(s => s.Id == id);
+            //var model = database.StudentsTable.FirstOrDefault(s => s.Id == id);
+            var model = dbContext.Students.FirstOrDefault(s => s.Id == id);
             if (ModelState.IsValid == false) 
             {
                 return NotFound();
@@ -199,13 +229,17 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Delete(StudentDetailViewModel model)
         {
-            var existingstudent = database.StudentsTable.FirstOrDefault(s => s.Id == model.Id);
+            //var existingstudent = database.StudentsTable.FirstOrDefault(s => s.Id == model.Id);
+            var existingstudent = dbContext.Students.FirstOrDefault(s => s.Id == model.Id);
             if (existingstudent == null) 
             {
                 return NotFound();
             }
 
-            database.StudentsTable.Remove(existingstudent);
+            //database.StudentsTable.Remove(existingstudent);
+            dbContext.Students.Remove(existingstudent);
+            dbContext.SaveChanges();
+
             return RedirectToAction("Index");
         }
     }
